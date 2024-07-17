@@ -29,6 +29,29 @@
 
         }
 
+        .gohome {
+
+            width: 50px;
+            border-radius: 8px;
+
+            position: absolute;
+            /*포지션 앱솔루트 => 절대 위치 설정 할 때*/
+            top: 10px;
+            
+            left: 10px;
+
+
+
+
+        }
+
+        .gohome:hover {
+            box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+            transform: translateY(-10px);
+        }
+
+
+
 
 
 
@@ -98,7 +121,7 @@
             width: 1000px;
             border-radius: 8px;
             overflow: hidden;
-        
+
             margin: auto;
             transition: all 0.3s cubic-bezier(0.42, 0.0, 0.58, 1.0);
 
@@ -117,7 +140,6 @@
             width: 50%;
             margin-left: 300px;
         }
-
     </style>
     <script type="module">
         // firebase 초기 세팅 코드
@@ -193,6 +215,10 @@
             <img id="pimage" src="./img/조은솔작은버전.jpg" alt="내사진" \
                 style="width:250px; height:300px; margin-left:180px; margin-top: 50px">
 
+        </div>
+
+        <div class="gohome">
+            <button type="button" class="btn btn-light">Home</button>
         </div>
 
         <div class="name">
