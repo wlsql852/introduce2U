@@ -45,29 +45,34 @@
 
     // firebase 초기 세팅 코드 끝
 
+    //경로에서 이름값 가져오기
+    const receivedData = location.href.split('?')[1];
+    let nameId = decodeURI(receivedData);
+    //console.log(receivedData); // data
+
+    // 전달받은 데이터가 한글일 경우
+    //console.log(decodeURI(receivedData));
 
     //데이터 읽기 스켈레톤 코드
     let docs = await getDocs(collection(db, "introducer"));
     docs.forEach((doc) => {
         let row = doc.data();
-        let image = row['image'];
         let name = row['name'];
-        let job = row['job'];
-        let introduce = row['introduce'];
-        let hobby = row['hobby'];
-        let sns = row['sns'];
+        if (name = nameId) {
+            let image = row['image'];
+            let job = row['job'];
+            let introduce = row['introduce'];
+            let hobby = row['hobby'];
+            let sns = row['sns'];
 
-        console.log(image);
+            $('#name').text(name);
+            $('#job').text(job);
+            $('#pimage').attr("src", +image);
 
-
-        $('#name').text(name);
-        $('#job').text(job);
-        $('#pimage').attr("src",+image);
-
-        $('#introduce').text(introduce);
-        $('#hobby').text(hobby);
-        $('#sns').text(sns);
-        
+            $('#introduce').text(introduce);
+            $('#hobby').text(hobby);
+            $('#sns').text(sns);
+        }
 
     });
 
@@ -82,24 +87,27 @@
     <div id="body">
         <div class="h-100 p-5 bg-body-tertiary border rounded-3">
             <h2>자기소개</h2>
-            <p id="introduce">Or, keep it light and add a border for some added definition to the boundaries of your content. Be sure
+            <p id="introduce">Or, keep it light and add a border for some added definition to the boundaries of your
+                content. Be sure
                 to look under the hood at the source HTML here as we've adjusted the alignment and sizing of both
                 column's content for equal-height.</p>
         </div>
         <div class="h-100 p-5 bg-body-tertiary border rounded-3">
             <h2>취미</h2>
-            <p id="hobby">Or, keep it light and add a border for some added definition to the boundaries of your content. Be sure
+            <p id="hobby">Or, keep it light and add a border for some added definition to the boundaries of your
+                content. Be sure
                 to look under the hood at the source HTML here as we've adjusted the alignment and sizing of both
                 column's content for equal-height.</p>
         </div>
         <div class="h-100 p-5 bg-body-tertiary border rounded-3">
             <h2>sns소개</h2>
-            <p id="sns">Or, keep it light and add a border for some added definition to the boundaries of your content. Be sure
+            <p id="sns">Or, keep it light and add a border for some added definition to the boundaries of your content.
+                Be sure
                 to look under the hood at the source HTML here as we've adjusted the alignment and sizing of both
                 column's content for equal-height.</p>
         </div>
     </div>
-    
+
 </body>
 
 </html>
