@@ -13,6 +13,9 @@
             width: 500px;
             margin: 20px auto 0px auto;
         }
+        .colorSelect {
+            width:35%;
+        }
     </style>
     <script type="module">
         // firebase 초기 세팅 코드
@@ -87,14 +90,16 @@
                 <label for="floatingInput">자기소개</label>
                 <label for="floatingInput"></label>
             </div>
-            <select class="form-select" aria-label="Default select example" id="color">
-                <option selected>퍼스널 컬러</option>
-                <option value="rgb(233, 235, 151)">노란색</option>
-                <option value="rgb(248, 173, 186)">붉은색</option>
-                <option value="rgb(170, 219, 247)">푸른색</option>
-                <option value="rgb(170, 247, 189)">초록색</option>
-                <option value="rgb(203, 66, 245)">보라색</option>
-              </select>
+            <div class="colorSelect">
+                <select class="form-select" aria-label="Default select example" id="color">
+                    <option selected>퍼스널 컬러</option>
+                    <option value="rgb(233, 235, 151)" style="background:rgb(233, 235, 151)">노란색</option>
+                    <option value="rgb(248, 173, 186)" style="background:rgb(248, 173, 186)">붉은색</option>
+                    <option value="rgb(170, 219, 247)" style="background:rgb(170, 219, 247)">푸른색</option>
+                    <option value="rgb(170, 247, 189)" style="background:rgb(170, 247, 189)">초록색</option>
+                    <option value="rgb(203, 66, 245)" style="background:rgb(203, 66, 245)">보라색</option>
+                </select>
+            </div>
             <button class="btn btn-outline-secondary" type="button" id="savebtn">저장</button>
         </div>
     </div>
