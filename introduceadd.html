@@ -121,7 +121,7 @@
             };
             await addDoc(collection(db, "introducer"), doc);
             alert('저장완료!');
-            window.location.reload();  //새로 고침
+            location.replace(`profile.html?${name}`);  //개인 상세페이지로 이동
         })
     </script>
     <title>introduceadd</title>

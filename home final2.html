@@ -164,21 +164,8 @@
             let name = row['name'];
             let mbti = row['mbti'];
             let introduce = row['introduce'];
-            console.log(name);
-
-            let temp_html = `
-            <div class="col">
-                <div class="card h-100">
-                    <img src="${image}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">${name}</h5>
-                        <p class="card-text">${mbti}</p>
-                        <p class="card-text">${introduce}</p>
-                        <button id="${name}" type="button" class="btn btn-primary">상세보기</button>
-                    </div>
-                </div>
-            </div>`;
-            let temp_html1 =`
+            
+            let temp_html =`
             <div class="myline1">
                 <div class="col">
                     <div class="card h-100">
@@ -193,19 +180,16 @@
                     </div>
                 </div>
             </div>`;
-            console.log(temp_html1);
-            $('#cardalbum').append(temp_html1);  //카드 추가 생성
+            $('#cardalbum').append(temp_html);  //카드 추가 생성
             console.log($('#cardalbum').val());
             const detail_show = document.getElementById(`${name}`);
             detail_show.addEventListener('click', () => {
-                location.href = `introduceshow.html?${name}`;
-                /*
-                if(names.indexOf(name) < -1){
+                //console.log(names.indexOf(name));
+                if(names.indexOf(name) == -1){
                     location.href = `introduceadd.html`;
                 }else{
-                    location.href = `introduceshow.html?${name}`;
+                    location.href = `profile.html?${name}`;
                 }
-                    */
             });
         });
     </script>
