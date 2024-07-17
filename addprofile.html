@@ -47,12 +47,15 @@
             let name = $('#name').val();
             let mbti = $('#mbti').val();
             let introduce = $('#introduce').val();
+            let color = $('#color').val();
 
             let doc = {
                 'image': image,
                 'name': name,
                 'mbti': mbti,
-                'introduce': introduce
+                'introduce': introduce,
+                'color': color
+
             };
             await addDoc(collection(db, "miniprofile"), doc);
             alert('저장완료!');
@@ -84,6 +87,14 @@
                 <label for="floatingInput">자기소개</label>
                 <label for="floatingInput"></label>
             </div>
+            <select class="form-select" aria-label="Default select example" id="color">
+                <option selected>퍼스널 컬러</option>
+                <option value="rgb(233, 235, 151)">노란색</option>
+                <option value="rgb(248, 173, 186)">붉은색</option>
+                <option value="rgb(170, 219, 247)">푸른색</option>
+                <option value="rgb(170, 247, 189)">초록색</option>
+                <option value="rgb(203, 66, 245)">보라색</option>
+              </select>
             <button class="btn btn-outline-secondary" type="button" id="savebtn">저장</button>
         </div>
     </div>
