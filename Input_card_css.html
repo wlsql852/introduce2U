@@ -140,7 +140,7 @@
 
         // 데이터 입력 및 저장
         $("#savebtn").click(async function () {
-            let image = $('#image').val().split("\\").pop();
+            let image = $('#image').val().split("/").pop();
             console.log(image);
             let name = $('#name').val();
             let mbti = $('#mbti').val();
