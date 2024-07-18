@@ -17,6 +17,9 @@
             width: 200px;
             height: 100px;
             flex-direction: column;
+            position: relative;
+            bottom: 500px;
+            left: 500px;
         }
 
         .image-upload {
@@ -63,17 +66,15 @@
 
         .image-show {
             z-index: -1;
-            width: 500px;
+            width: 400px;
             height: 400px;
-            float: inline-end;
+            display: flex;
         }
 
         .img {
             margin-right: 20px;
-            position: absolute;
-            float: right;
+            position: sticky;
             display: flex;
-
         }
         .introduce {
             width: 500px;
@@ -160,7 +161,9 @@
     </script>
     <title>introduceadd</title>
 </head>
+<body>
     <div class="introduce">
+       
         <div class="name">
             "사일런트 코더스 Silent coders"
         </div>
@@ -187,6 +190,7 @@
             <input type="email" class="form-control" id="sns" placeholder="name@example.com">
             <label for="floatingInput">sns소개</label>
         </div>
+
         <div class="container">
             <div class="image-upload" id="image-upload">
                 <form method="post" enctype="multipart/form-data" id="imgform">
@@ -206,7 +210,7 @@
         </div>
         <button id="savebtn" type="button" class="btn btn-dark">저장하기</button>
     </div>
-    <div class="uploadimg">
+ 
     <script>
         function loadFile(input) {
             var file = input.files[0];
@@ -264,7 +268,6 @@
         var submit = document.getElementById('submitButton');
         submit.onclick = showImage;     //Submit 버튼 클릭시 이미지 보여주기
     </script>
-    </div>
 </body>
 
 </html>
