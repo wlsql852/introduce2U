@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <title>addprofile</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap');
+        @import 'bootstrap/dist/css/bootstrap.min.css';
+        @import url('https://fonts.googleapis.com/css2?family=Dongle&family=Stylish&display=swap');
+
+        .addprofile {
+            width: 550px;
+            height: 520px;
+            margin: 120px auto 0px auto;
+            background-color: rgb(175, 173, 148);
+            border-radius: 5px;
+            border: 1px solid white;
+        }
+
+        .addprofile>button {
+            border: 1px solid black;
+        }
+
+        body {
+            background-image: url('https://img.freepik.com/free-vector/living-room-background-color-pencil-illustration_53876-100534.jpg?size=626&ext=jpg&ga=GA1.1.196319160.1721263459&semt=ais_user');
+            background-position: center;
+            background-size: cover;
+
+
+        }
+
+        h2 {
+            color: rgb(70, 67, 67);
+            text-shadow: 2px 2px gray;
+            font-family: "Black Han Sans", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+
+        }
+
+        .custom-dropdown {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .custom-dropdown-selected {
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            background-color: #fff;
+            color: #495057;
+            cursor: pointer;
+            width: 100%;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .custom-dropdown-options {
+            display: none;
+            position: absolute;
+            background-color: #fff;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            width: 100%;
+            box-sizing: border-box;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+            z-index: 1;
+            height: 0;
+            overflow: hidden;
+            transition: height 0.3s ease;
+        }
+
+        .custom-dropdown-options div {
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .custom-dropdown-options div:hover {
+            background-color: #f1f1f1;
+        }
+
+        .custom-toggle-btn {
+            padding: 0 10px;
+            cursor: pointer;
+            user-select: none;
+            transition: transform 0.3s ease;
+        }
+
+        .rotate-up {
+            transform: rotate(180deg);
+        }
+
+        .show {
+            display: block;
+            height: auto;
+            max-height: 200px;
+        }
+
+        #select-font {
+            font-family: "Stylish", serif;
+            font-weight: 400;
+            font-style: normal;
+            font-size: medium;
+        }
+    </style>
+    <script type="module">
+        // firebase 초기 세팅 코드
+        // Firebase SDK 라이브러리 가져오기
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+        import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+        import { collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+        import { getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+
+
+        // Firebase 구성 정보 설정 - firebase에서 가져오기
+        const firebaseConfig = {
+            apiKey: "AIzaSyDb1ItKouvn0RePzTzKqT1WjDJ4FrbWhn8",
+            authDomain: "silence-coders.firebaseapp.com",
+            projectId: "silence-coders",
+            storageBucket: "silence-coders.appspot.com",
+            messagingSenderId: "708388650781",
+            appId: "1:708388650781:web:29c2ec206171efb2562bf4",
+            measurementId: "G-6N1FE0S99F"
+        };
+
+
+        // Firebase 인스턴스 초기화
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // firebase 초기 세팅 코드 끝
+
+        // 데이터 입력 및 저장
+        $("#savebtn").click(async function () {
+            let image = $('#image').val().split("\\").pop();
+            console.log(image);
+            let name = $('#name').val();
+            let mbti = $('#mbti').val();
+            let introduce = $('#introduce').val();
+            let color = $('div[name="color"]').val();
+
+            let doc = {
+                'image': image,
+                'name': name,
+                'mbti': mbti,
+                'introduce': introduce,
+                'color': color
+            };
+            await addDoc(collection(db, "miniprofile"), doc);
+            alert('저장완료!');
+            location.replace("home final2.html");  //홈페이지로 이동
+        })
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var dropdown = document.getElementById('colorDropdown');
+            var selected = dropdown.querySelector('.custom-dropdown-selected');
+            var options = dropdown.querySelector('.custom-dropdown-options');
+            var toggleBtn = dropdown.querySelector('.custom-toggle-btn');
+
+            function toggleDropdown() {
+                if (options.style.display === 'block') {
+                    options.style.height = 0;
+                    setTimeout(function () {
+                        options.style.display = 'none';
+                    }, 300);
+                } else {
+                    options.style.display = 'block';
+                    setTimeout(function () {
+                        options.style.height = options.scrollHeight + 'px';
+                    }, 10);
+                }
+                toggleBtn.classList.toggle('rotate-up');
+            }
+
+            selected.addEventListener('click', toggleDropdown);
+
+            options.addEventListener('click', function (e) {
+                if (e.target.tagName === 'DIV') {
+                    selected.querySelector('span').textContent = e.target.textContent;
+                    selected.style.backgroundColor = e.target.style.backgroundColor;
+                    options.style.height = 0;
+                    setTimeout(function () {
+                        options.style.display = 'none';
+                    }, 300);
+                    toggleBtn.classList.remove('rotate-up');
+                    selected.dataset.value = e.target.dataset.value;
+                }
+            });
+
+            document.addEventListener('click', function (e) {
+                if (!dropdown.contains(e.target)) {
+                    options.style.height = 0;
+                    setTimeout(function () {
+                        options.style.display = 'none';
+                    }, 300);
+                    toggleBtn.classList.remove('rotate-up');
+                }
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div class="addprofile">
+        <div class="h-100 p-5 bg-body-tertiary border rounded-3">
+            <h2>add profile</h2>
+            <div class="form-floating mb-3" id="select-font">
+                <input type="email" class="form-control" id="image" placeholder="name@example.com">
+                <label for="floatingInput"><span>이미지</span></label>
+            </div>
+            <div class="form-floating mb-3" id="select-font">
+                <input type="email" class="form-control" id="name" placeholder="name@example.com">
+                <label for="floatingInput"><span>이름</span></label>
+            </div>
+            <div class="form-floating mb-3" id="select-font">
+                <input type="email" class="form-control" id="mbti" placeholder="name@example.com">
+                <label for="floatingInput"><span>mbti</span></label>
+            </div>
+            <div class="form-floating mb-3" id="select-font">
+                <input type="email" class="form-control" id="introduce" placeholder="name@example.com">
+                <label for="floatingInput"><span>자기소개</span></label>
+                <label for="floatingInput"></label>
+            </div>
+            <div class="custom-dropdown" id="colorDropdown">
+                <div class="custom-dropdown-selected">
+                    <span id="select-font">퍼스널 컬러</span>
+                    <span class="custom-toggle-btn">&#9660;</span>
+                </div>
+                <div class="custom-dropdown-options" id="select-font" name="color">
+                    <div data-value="rgb(233, 235, 151)" style="background-color: rgb(233, 235, 151);">노란색</div>
+                    <div data-value="rgb(248, 173, 186)" style="background-color: rgb(248, 173, 186);">붉은색</div>
+                    <div data-value="rgb(170, 219, 247)" style="background-color: rgb(170, 219, 247);">푸른색</div>
+                    <div data-value="rgb(170, 247, 189)" style="background-color: rgb(170, 247, 189);">초록색</div>
+                    <div data-value="rgb(203, 66, 245)" style="background-color: rgb(203, 66, 245);">보라색</div>
+                </div>
+            </div>
+            <div>
+                <br>
+            </div>
+            <button type="button" class="btn btn-secondary" id="savebtn">저장</button>
+        </div>
+    </div>
+
+</body>
+
+</html>

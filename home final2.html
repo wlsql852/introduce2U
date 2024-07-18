@@ -119,6 +119,12 @@
             font-size: 20px;
             line-height: 10px;
         }
+        .newmember {
+            position: absolute;
+            top: 510px;
+            left : 1300px; 
+        }
+
     </style>
     <script type="module">
         // firebase 초기 세팅 코드
@@ -199,7 +205,7 @@
             detail_show.addEventListener('click', () => {
                 //console.log(names.indexOf(name));
                 if (names.indexOf(name) == -1) {
-                    location.href = `introduceadd.html`;
+                    location.href = `detail page.html`;
                 } else {
                     location.href = `profile.html?${name}`;
                 }
@@ -219,6 +225,7 @@
             //window.location.reload();  //새로 고침
         });
         */
+
     </script>
 </head>
 
@@ -257,6 +264,9 @@
                 <p>2. 문제가 생기면 바로 팀원에게 알리기</p>
                 <p>3. 원활한 소통을 위해 노력하기</p>
         </div>
+    </div>
+    <div class="newmember">
+        <button type="button" class="btn btn-dark" onclick="location.href='Input_card_css.html'">멤버추가</button>
     </div>
     <div class="mycards">
         <div id="cardalbum" class="row row-cols-1 row-cols-md-4 g-4">
