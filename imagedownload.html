@@ -22,8 +22,7 @@
             if (file) {
                 const formData = new FormData();
                 formData.append('img', file);
-
-                fetch('/upload', {
+                fetch('/upload', {   //http://localhost:9080
                     method: 'POST',
                     body: formData,
                 })

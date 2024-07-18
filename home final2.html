@@ -7,7 +7,7 @@
     <title>Intro duce 2 U</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Jua&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Dongle&family=Jua&display=swap');
@@ -119,15 +119,12 @@
             font-size: 20px;
             line-height: 10px;
         }
-<<<<<<< HEAD
         .newmember {
             position: absolute;
             top: 510px;
             left : 1300px; 
         }
 
-=======
->>>>>>> 1efc8e16d2652db1b96cb8d104e845d69dbcbce7
     </style>
     <script type="module">
         // firebase 초기 세팅 코드
@@ -136,6 +133,10 @@
         import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
         import { collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
         import { getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+
+        import { doc, deleteDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+
+
 
 
         // Firebase 구성 정보 설정 - firebase에서 가져오기
@@ -160,38 +161,32 @@
         const names = [];
         let datas = await getDocs(collection(db, "introducer"));
         datas.forEach((data) => {
-            let row = data.data();
-            names.push(row['name']);
+            names.push(data.id);
         })
+        const ids = [];
+        let id_data = await getDocs(collection(db, "miniprofile"));
+        id_data.forEach((data) => {
+            ids.push(data.id);
+        })
+
 
         //데이터 읽기 스켈레톤 코드
         let docs = await getDocs(collection(db, "miniprofile"));
-        docs.forEach((doc) => {
-            let row = doc.data();
+        docs.forEach((doc1) => {
+            let row = doc1.data();
+            let id = doc1.id;
 
-            let image = row['image'];
+            let image = "./img/" + row['image'];
             let name = row['name'];
             let mbti = row['mbti'];
             let introduce = row['introduce'];
-            console.log(name);
+            let color = row['color'];
 
             let temp_html = `
-            <div class="col">
-                <div class="card h-100">
-                    <img src="${image}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">${name}</h5>
-                        <p class="card-text">${mbti}</p>
-                        <p class="card-text">${introduce}</p>
-                        <button id="${name}" type="button" class="btn btn-primary">상세보기</button>
-                    </div>
-                </div>
-            </div>`;
-            let temp_html1 =`
-            <div class="myline1">
+            <div class="myline1" style="background:${color}">
                 <div class="col">
                     <div class="card h-100">
-                        <img src="./img/조은솔작은버전.jpg"
+                        <img src="${image}" 
                             class="card-img-top" alt="...">
                         <div class="card-body">
                             <p class="card-title">${name}</p>
@@ -201,22 +196,36 @@
                         </div>
                     </div>
                 </div>
+                <p id="edit">
+                <a href="editprofile.html?${name}">수정</a> | <span class="delete" name=${id}>삭제</span>
+                </p>
             </div>`;
-            console.log(temp_html1);
-            $('#cardalbum').append(temp_html1);  //카드 추가 생성
-            console.log($('#cardalbum').val());
+            $('#cardalbum').append(temp_html);  //카드 추가 생성
             const detail_show = document.getElementById(`${name}`);
             detail_show.addEventListener('click', () => {
-                location.href = `introduceshow.html?${name}`;
-                /*
-                if(names.indexOf(name) < -1){
-                    location.href = `introduceadd.html`;
-                }else{
-                    location.href = `introduceshow.html?${name}`;
+                //console.log(names.indexOf(name));
+                if (names.indexOf(name) == -1) {
+                    location.href = `detail page.html`;
+                } else {
+                    location.href = `profile.html?${name}`;
                 }
-                    */
             });
+            $(`span[name=${id}]`).click(async function () {
+                console.log(id);
+                deleteDoc(doc(db, "miniprofile", id));
+                //window.location.reload();  //새로 고침 - 안되서 고쳐야함
+            });
+
+        })
+        /*
+        const card_delete = $('#delete');
+        card_delete.addEventListener('click', () => {
+            deleteDoc(doc(db, "miniprofile", id));
+            console.log(id);
+            //window.location.reload();  //새로 고침
         });
+        */
+
     </script>
 </head>
 
@@ -257,7 +266,7 @@
         </div>
     </div>
     <div class="newmember">
-        <button type="button" class="btn btn-dark">멤버추가</button>
+        <button type="button" class="btn btn-dark" onclick="location.href='Input_card_css.html'">멤버추가</button>
     </div>
     <div class="mycards">
         <div id="cardalbum" class="row row-cols-1 row-cols-md-4 g-4">
