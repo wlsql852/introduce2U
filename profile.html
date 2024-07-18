@@ -185,18 +185,18 @@
             console.log(nameId, name);
 
             if (name == nameId) {
-                let image = row['image'];
+                let image = "./img/"+row['image'];  //사진 상대경로
                 let job = row['job'];
                 let introduce = row['introduce'];
                 let hobby = row['hobby'];
                 let sns = row['sns'];
-                console.log(sns);
+                //console.log(image);
 
 
                 $('#name').text(name);
                 $('#job').text(job);
-                //$('#pimage').attr("src", +image);
-
+                $('#pimage').attr("src", image);
+                
                 $('#introduce').text(introduce);
                 //console.log(introduce);
                 $('#hobby').text(hobby);
