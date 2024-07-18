@@ -9,9 +9,34 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <title>addprofile</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap');
+        @import 'bootstrap/dist/css/bootstrap.min.css';
+
         .addprofile {
-            width: 500px;
-            margin: 20px auto 0px auto;
+            width: 550px;
+            height: 530px;
+            margin: 120px auto 0px auto;
+            background-color: #cfe2ff;
+            border-radius: 5px;
+            border: 1px solid gray
+        }
+
+        .addprofile>button {
+            color: bisque;
+        }
+
+        body {
+            background-image: url('https://img.freepik.com/free-vector/living-room-background-color-pencil-illustration_53876-100534.jpg?size=626&ext=jpg&ga=GA1.1.196319160.1721263459&semt=ais_user');
+            background-position: center;
+            background-size: cover;
+
+
+        }
+
+        h2 {
+            font-family: "Black Han Sans", sans-serif;
+            font-weight: 400;
+            font-style: normal;
         }
     </style>
     <script type="module">
@@ -32,7 +57,7 @@
             messagingSenderId: "708388650781",
             appId: "1:708388650781:web:29c2ec206171efb2562bf4",
             measurementId: "G-6N1FE0S99F"
-          };
+        };
 
 
         // Firebase 인스턴스 초기화
@@ -81,6 +106,19 @@
                 <input type="email" class="form-control" id="introduce" placeholder="name@example.com">
                 <label for="floatingInput">자기소개</label>
                 <label for="floatingInput"></label>
+            </div>
+            <div>
+                <select class="form-select" aria-label="Default select example" id="color">
+                    <option selected>퍼스널 컬러</option>
+                    <option value="rgb(233, 235, 151)">노란색</option>
+                    <option value="rgb(248, 173, 186)">붉은색</option>
+                    <option value="rgb(170, 219, 247)">푸른색</option>
+                    <option value="rgb(170, 247, 189)">초록색</option>
+                    <option value="rgb(203, 66, 245)">보라색</option>
+                </select>
+            </div>
+            <div>
+                <br>
             </div>
             <button class="btn btn-outline-secondary" type="button" id="savebtn">저장</button>
         </div>
