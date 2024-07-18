@@ -124,6 +124,9 @@
             top: 510px;
             left : 1300px; 
         }
+        #edit{
+            padding-top: 30px;
+        }
 
     </style>
     <script type="module">
@@ -197,7 +200,7 @@
                     </div>
                 </div>
                 <p id="edit">
-                <a href="editprofile.html?${name}">수정</a> | <span class="delete" name=${id}>삭제</span>
+                <a href="edit_card_css.html?${name}">수정</a> | <span class="delete" name=${id}>삭제</span>
                 </p>
             </div>`;
             $('#cardalbum').append(temp_html);  //카드 추가 생성
@@ -212,8 +215,8 @@
             });
             $(`span[name=${id}]`).click(async function () {
                 console.log(id);
-                deleteDoc(doc(db, "miniprofile", id));
-                //window.location.reload();  //새로 고침 - 안되서 고쳐야함
+                await deleteDoc(doc(db, "miniprofile", id));
+                window.location.reload();  //새로 고침 - 안되서 고쳐야함
             });
 
         })

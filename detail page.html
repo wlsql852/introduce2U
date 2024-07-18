@@ -8,12 +8,18 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <style>
+        body{
+            background-color: beige;
+        }
         .container {
             margin-top: 30px;
             display: flex;
             width: 200px;
             height: 100px;
             flex-direction: column;
+            position: relative;
+            bottom: 500px;
+            left: 500px;
         }
 
         .image-upload {
@@ -26,7 +32,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 400px;
+            width: 300px;
+
         }
         
         .fileInput {
@@ -47,35 +54,36 @@
             justify-content: center;
             align-items: center;
             margin-left: 10px;
-            background-color: black;
-            color: white;
+            background-color: white;
+            color: transparent;
             border-radius: 30px;
             padding: 10px;
             font-size: 0.8em;
+            color: black;
 
             cursor: pointer;
         }
 
         .image-show {
             z-index: -1;
+            width: 400px;
+            height: 400px;
             display: flex;
-            justify-content: center;
-            width: 500px;
-            height: 600px;
-            margin-right: 20px;
         }
 
         .img {
             margin-right: 20px;
-            position: absolute;
+            position: sticky;
+            display: flex;
         }
         .introduce {
             width: 500px;
-            margin: 20px auto 20px auto;
+            margin-top: 50px;
+            margin-left: 20%;
             text-align: center;
-            background-color: white;
+            background-color: rgb(175, 173, 148);
 
-            border: 1px solid black;
+            border: 1px solid white;
             padding: 20px;
             border-radius: 5px;
             
@@ -89,8 +97,13 @@
         .name{
             font-size: 15px;
             text-align: center;
-            background-color: red;
-            color: white;
+            background-color: white;
+            color: black;
+            border: 1px solid white;
+            border-radius: 5px;
+        }
+        .uploadimg{
+            float: right;
             border: 1px solid white;
             border-radius: 5px;
         }
@@ -148,7 +161,9 @@
     </script>
     <title>introduceadd</title>
 </head>
+<body>
     <div class="introduce">
+       
         <div class="name">
             "사일런트 코더스 Silent coders"
         </div>
@@ -175,26 +190,27 @@
             <input type="email" class="form-control" id="sns" placeholder="name@example.com">
             <label for="floatingInput">sns소개</label>
         </div>
-        <button id="savebtn" type="button" class="btn btn-primary">저장하기</button>
-    </div>
-        
+
         <div class="container">
-        <div class="image-upload" id="image-upload">
-            <form method="post" enctype="multipart/form-data" id="imgform">
-                <input type="file" id="chooseFile" name="chooseFile" accept="image/*" onchange="loadFile(this)">
-            </form>
-            <div class="fileContainer">
-                <!-- <div class="fileInput">
-                    <p>FILE NAME: </p>
-                    <p id="fileName"></p>
-                </div> -->
-                <div class="buttonContainer">
-                    <div class="submitButton" id="submitButton">SUBMIT</div>
+            <div class="image-upload" id="image-upload">
+                <form method="post" enctype="multipart/form-data" id="imgform">
+                    <input type="file" id="chooseFile" name="chooseFile" accept="image/*" onchange="loadFile(this)">
+                </form>
+                <div class="fileContainer">
+                    <!-- <div class="fileInput">
+                        <p>FILE NAME: </p>
+                        <p id="fileName"></p>
+                     </div> -->
+                    <div class="buttonContainer">
+                        <div class="submitButton" id="submitButton">SUBMIT</div>
+                    </div>
                 </div>
+                <div class="image-show" id="image-show"></div>
             </div>
-            <div class="image-show" id="image-show"></div>
         </div>
+        <button id="savebtn" type="button" class="btn btn-dark">저장하기</button>
     </div>
+ 
     <script>
         function loadFile(input) {
             var file = input.files[0];

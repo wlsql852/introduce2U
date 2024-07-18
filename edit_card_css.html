@@ -119,6 +119,7 @@
         import { collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
         import { getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
+        import { doc, setDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
         // Firebase 구성 정보 설정 - firebase에서 가져오기
         const firebaseConfig = {
@@ -137,6 +138,43 @@
         const db = getFirestore(app);
 
         // firebase 초기 세팅 코드 끝
+
+        //id가져오기
+        const receivedData = location.href.split('?')[1];
+        console.log(receivedData);
+        let nameId = decodeURI(receivedData);
+        console.log(nameId);
+
+        //해당 정보 입력값들 가져오기
+        //데이터 읽기 스켈레톤 코드
+        var id;
+        let docs = await getDocs(collection(db, "miniprofile"));
+        docs.forEach((doc) => {
+            let row = doc.data();
+            let name = row['name'];
+            console.log(nameId, name);
+
+            if (name == nameId) {
+                id = doc.id;
+                console.log(id);
+                let image = row['image'];  //사진 상대경로
+                let mbti = row['mbti'];
+                let introduce = row['introduce'];
+                let color = row['color'];
+                
+                
+                $('#name').attr("value", name);    //기본값 추가하기
+                console.log(mbti);
+                $('#mbti').attr("value", mbti);
+                $('#image').attr("value", image);
+
+                $('#introduce').attr("value", introduce);
+                //console.log(introduce);
+                //const option = document.querySelector("option[value =`${color}`]");    //색상 select기본값 넣기-수정 필요
+                //option.selected = true;
+            }
+
+        });
 
         // 데이터 입력 및 저장
         $("#savebtn").click(async function () {
