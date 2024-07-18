@@ -83,6 +83,7 @@
         import { collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
         import { getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
+        import { doc, setDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
         // Firebase 구성 정보 설정 - firebase에서 가져오기
         const firebaseConfig = {
@@ -111,7 +112,7 @@
             let hobby = $('#hobby').val();
             let sns = $('#sns').val();
 
-            let doc = {
+            let data = {
                 'image': image,
                 'name': name,
                 'job': job,
@@ -119,7 +120,8 @@
                 'hobby': hobby,
                 'sns': sns
             };
-            await addDoc(collection(db, "introducer"), doc);
+            //await addDoc(collection(db, "introducer"), doc);    //각 데이터의 id를 랜덤으로 지정함
+            await setDoc(doc(db, "introducer", `${name}`), data); //각 데이터의 id를 이름으로 지정함
             alert('저장완료!');
             location.replace(`profile.html?${name}`);  //개인 상세페이지로 이동
         })
