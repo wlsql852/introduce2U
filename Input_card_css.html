@@ -140,20 +140,23 @@
 
         // 데이터 입력 및 저장
         $("#savebtn").click(async function () {
-            let image = $('#image').val();
+            let image = $('#image').val().split("\\").pop();
+            console.log(image);
             let name = $('#name').val();
             let mbti = $('#mbti').val();
             let introduce = $('#introduce').val();
+            let color = $('div[name="color"]').val();
 
             let doc = {
                 'image': image,
                 'name': name,
                 'mbti': mbti,
-                'introduce': introduce
+                'introduce': introduce,
+                'color': color
             };
             await addDoc(collection(db, "miniprofile"), doc);
             alert('저장완료!');
-            window.location.reload();  //새로 고침
+            location.replace("home final2.html");  //홈페이지로 이동
         })
 
         document.addEventListener('DOMContentLoaded', function () {
@@ -231,7 +234,7 @@
                     <span id="select-font">퍼스널 컬러</span>
                     <span class="custom-toggle-btn">&#9660;</span>
                 </div>
-                <div class="custom-dropdown-options" id="select-font">
+                <div class="custom-dropdown-options" id="select-font" name="color">
                     <div data-value="rgb(233, 235, 151)" style="background-color: rgb(233, 235, 151);">노란색</div>
                     <div data-value="rgb(248, 173, 186)" style="background-color: rgb(248, 173, 186);">붉은색</div>
                     <div data-value="rgb(170, 219, 247)" style="background-color: rgb(170, 219, 247);">푸른색</div>
