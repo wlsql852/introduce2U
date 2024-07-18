@@ -11,6 +11,7 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap');
         @import 'bootstrap/dist/css/bootstrap.min.css';
+        @import url('https://fonts.googleapis.com/css2?family=Dongle&family=Stylish&display=swap');
 
         .addprofile {
             width: 550px;
@@ -21,7 +22,7 @@
             border: 1px solid white;
         }
 
-        .addprofile>button{
+        .addprofile>button {
             border: 1px solid black;
         }
 
@@ -39,6 +40,75 @@
             font-family: "Black Han Sans", sans-serif;
             font-weight: 400;
             font-style: normal;
+
+        }
+
+        .custom-dropdown {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .custom-dropdown-selected {
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            background-color: #fff;
+            color: #495057;
+            cursor: pointer;
+            width: 100%;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .custom-dropdown-options {
+            display: none;
+            position: absolute;
+            background-color: #fff;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            width: 100%;
+            box-sizing: border-box;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+            z-index: 1;
+            height: 0;
+            overflow: hidden;
+            transition: height 0.3s ease;
+        }
+
+        .custom-dropdown-options div {
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .custom-dropdown-options div:hover {
+            background-color: #f1f1f1;
+        }
+
+        .custom-toggle-btn {
+            padding: 0 10px;
+            cursor: pointer;
+            user-select: none;
+            transition: transform 0.3s ease;
+        }
+
+        .rotate-up {
+            transform: rotate(180deg);
+        }
+
+        .show {
+            display: block;
+            height: auto;
+            max-height: 200px;
+        }
+
+        #select-font {
+            font-family: "Stylish", serif;
+            font-weight: 400;
+            font-style: normal;
+            font-size: medium;
         }
     </style>
     <script type="module">
@@ -85,6 +155,53 @@
             alert('저장완료!');
             window.location.reload();  //새로 고침
         })
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var dropdown = document.getElementById('colorDropdown');
+            var selected = dropdown.querySelector('.custom-dropdown-selected');
+            var options = dropdown.querySelector('.custom-dropdown-options');
+            var toggleBtn = dropdown.querySelector('.custom-toggle-btn');
+
+            function toggleDropdown() {
+                if (options.style.display === 'block') {
+                    options.style.height = 0;
+                    setTimeout(function () {
+                        options.style.display = 'none';
+                    }, 300);
+                } else {
+                    options.style.display = 'block';
+                    setTimeout(function () {
+                        options.style.height = options.scrollHeight + 'px';
+                    }, 10);
+                }
+                toggleBtn.classList.toggle('rotate-up');
+            }
+
+            selected.addEventListener('click', toggleDropdown);
+
+            options.addEventListener('click', function (e) {
+                if (e.target.tagName === 'DIV') {
+                    selected.querySelector('span').textContent = e.target.textContent;
+                    selected.style.backgroundColor = e.target.style.backgroundColor;
+                    options.style.height = 0;
+                    setTimeout(function () {
+                        options.style.display = 'none';
+                    }, 300);
+                    toggleBtn.classList.remove('rotate-up');
+                    selected.dataset.value = e.target.dataset.value;
+                }
+            });
+
+            document.addEventListener('click', function (e) {
+                if (!dropdown.contains(e.target)) {
+                    options.style.height = 0;
+                    setTimeout(function () {
+                        options.style.display = 'none';
+                    }, 300);
+                    toggleBtn.classList.remove('rotate-up');
+                }
+            });
+        });
     </script>
 </head>
 
@@ -92,32 +209,35 @@
     <div class="addprofile">
         <div class="h-100 p-5 bg-body-tertiary border rounded-3">
             <h2>add profile</h2>
-            <div class="form-floating mb-3">
+            <div class="form-floating mb-3" id="select-font">
                 <input type="email" class="form-control" id="image" placeholder="name@example.com">
                 <label for="floatingInput"><span>이미지</span></label>
             </div>
-            <div class="form-floating mb-3">
+            <div class="form-floating mb-3" id="select-font">
                 <input type="email" class="form-control" id="name" placeholder="name@example.com">
                 <label for="floatingInput"><span>이름</span></label>
             </div>
-            <div class="form-floating mb-3">
+            <div class="form-floating mb-3" id="select-font">
                 <input type="email" class="form-control" id="mbti" placeholder="name@example.com">
                 <label for="floatingInput"><span>mbti</span></label>
             </div>
-            <div class="form-floating mb-3">
+            <div class="form-floating mb-3" id="select-font">
                 <input type="email" class="form-control" id="introduce" placeholder="name@example.com">
                 <label for="floatingInput"><span>자기소개</span></label>
                 <label for="floatingInput"></label>
             </div>
-            <div>
-                <select class="form-select" aria-label="Default select example" id="color">
-                    <option selected>퍼스널 컬러</option>
-                    <option value="rgb(233, 235, 151)">노란색</option>
-                    <option value="rgb(248, 173, 186)">붉은색</option>
-                    <option value="rgb(170, 219, 247)">푸른색</option>
-                    <option value="rgb(170, 247, 189)">초록색</option>
-                    <option value="rgb(203, 66, 245)">보라색</option>
-                </select>
+            <div class="custom-dropdown" id="colorDropdown">
+                <div class="custom-dropdown-selected">
+                    <span id="select-font">퍼스널 컬러</span>
+                    <span class="custom-toggle-btn">&#9660;</span>
+                </div>
+                <div class="custom-dropdown-options" id="select-font">
+                    <div data-value="rgb(233, 235, 151)" style="background-color: rgb(233, 235, 151);">노란색</div>
+                    <div data-value="rgb(248, 173, 186)" style="background-color: rgb(248, 173, 186);">붉은색</div>
+                    <div data-value="rgb(170, 219, 247)" style="background-color: rgb(170, 219, 247);">푸른색</div>
+                    <div data-value="rgb(170, 247, 189)" style="background-color: rgb(170, 247, 189);">초록색</div>
+                    <div data-value="rgb(203, 66, 245)" style="background-color: rgb(203, 66, 245);">보라색</div>
+                </div>
             </div>
             <div>
                 <br>
