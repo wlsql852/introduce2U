@@ -212,8 +212,8 @@
             });
             $(`span[name=${id}]`).click(async function () {
                 console.log(id);
-                deleteDoc(doc(db, "miniprofile", id));
-                //window.location.reload();  //새로 고침 - 안되서 고쳐야함
+                await deleteDoc(doc(db, "miniprofile", id));
+                window.location.reload();  //새로 고침 - 안되서 고쳐야함
             });
 
         })

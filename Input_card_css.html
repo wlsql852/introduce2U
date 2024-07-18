@@ -140,12 +140,17 @@
 
         // 데이터 입력 및 저장
         $("#savebtn").click(async function () {
-            let image = $('#image').val().split("\\").pop();
+            let image;
+            if($('#image').val().split("\\").length > 1) {
+                image = $('#image').val().split("\\").pop();
+            } else {
+                image = $('#image').val().split("/").pop();
+            }
             console.log(image);
             let name = $('#name').val();
             let mbti = $('#mbti').val();
             let introduce = $('#introduce').val();
-            let color = $('div[name="color"]').val();
+            let color = $('.custom-dropdown-selected').attr('data-value');
 
             let doc = {
                 'image': image,
