@@ -85,7 +85,7 @@
         $("#savebtn").click(async function () {
 
             console.log(1);
-            let image = $('#image').val();
+            let image = $('#image').val().split("\\").pop();
             console.log(image);
             let name = $('#name').val();
             let mbti = $('#mbti').val();
