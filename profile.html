@@ -164,18 +164,12 @@
         //경로에서 이름값 가져오기
         const receivedData = location.href.split('?')[1];
         let nameId = decodeURI(receivedData);
-        console.log(nameId);
-        //console.log(receivedData); // data
-
-        // 전달받은 데이터가 한글일 경우
-        //console.log(decodeURI(receivedData));
 
         //데이터 읽기 스켈레톤 코드
         let docs = await getDocs(collection(db, "introducer"));
         docs.forEach((doc) => {
             let row = doc.data();
             let name = row['name'];
-            console.log(nameId, name);
 
             if (name == nameId) {
                 let image = "./img/"+row['image'];  //사진 상대경로
@@ -183,7 +177,6 @@
                 let introduce = row['introduce'];
                 let hobby = row['hobby'];
                 let sns = row['sns'];
-                //console.log(image);
 
 
                 $('#name').text(name);
@@ -191,7 +184,6 @@
                 $('#pimage').attr("src", image);
                 
                 $('#introduce').text(introduce);
-                //console.log(introduce);
                 $('#hobby').text(hobby);
                 $('#sns').text(sns);
             }
@@ -201,7 +193,6 @@
         $('#editbtn').click(async function () {
             location.replace(`edit_detail page.html?${nameId}`);
         })
-
     </script>
 </head>
 
@@ -211,13 +202,11 @@
         <div>
             <img id="pimage" src="./img/조은솔작은버전.jpg" alt="내사진" \
                 style="width:250px; height:300px; margin-left:300px; margin-top: 50px">
-
         </div>
 
         <div class="gohome">
             <button type="button" class="btn btn-light" onclick="location.href='home final2.html'">Home</button>
         </div>
-
         <div class="name">
             <h5 id="name">조은솔</h5>
             <p>
@@ -237,7 +226,6 @@
                     mbti는 ISTP 입니다. 사실 직설적으로 말해주시지 않으면 잘 못 알아듣기 때문에 제게 할 말씀이 있으시다면, 마음에 담아두거나 상처를 잘 받는 성격은 아닌지라 언제든 편하게
                     말씀해주시면 감사하겠습니다! 이번 부트캠프를 통해 많은것을 배우고 얻어가고 싶습니다. 감사합니다. </h5>
                 </p>
-
             </div>
             </p>
             <hr class="two">
@@ -256,7 +244,6 @@
                     무사히
                     완주한 후 새롭게 베이스도 배워보고자 합니다.</h5>
                 </p>
-
             </div>
             </p>
             <hr class="two">
@@ -266,7 +253,6 @@
                 <p>
                     <a href="https://velog.io/@sol000619/posts">sns</a>
                 </p>
-
             </div>
             </p>
         </div>
@@ -274,9 +260,6 @@
             <button id="editbtn" type="button" class="btn btn-light">수정</button>
         </div>
     </div>
-
-
-
 </body>
 
 </html>

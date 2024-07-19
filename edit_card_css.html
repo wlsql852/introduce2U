@@ -141,9 +141,7 @@
 
         //id가져오기
         const receivedData = location.href.split('?')[1];
-        console.log(receivedData);
         let nameId = decodeURI(receivedData);
-        console.log(nameId);
 
         //해당 정보 입력값들 가져오기
         //데이터 읽기 스켈레톤 코드
@@ -152,11 +150,9 @@
         docs.forEach((doc) => {
             let row = doc.data();
             let name = row['name'];
-            console.log(nameId, name);
 
             if (name == nameId) {
                 id = doc.id;
-                console.log(id);
                 let image = row['image'];  //사진 상대경로
                 let mbti = row['mbti'];
                 let introduce = row['introduce'];
@@ -164,15 +160,11 @@
                 
                 
                 $('#name').attr("value", name);    //기본값 추가하기
-                console.log(mbti);
                 $('#mbti').attr("value", mbti);
                 $('#image').attr("value", image);
                 $('#introduce').attr("value", introduce);
                 $('.custom-dropdown-selected').attr('data-value',color);
                 $('.custom-dropdown-selected').attr('style',`background-color: ${color}`);
-                //console.log(introduce);
-                //const option = document.querySelector("option[value =`${color}`]");    //색상 select기본값 넣기-수정 필요
-                //option.selected = true;
             }
 
         });
@@ -185,12 +177,10 @@
             } else {
                 image = $('#image').val().split("/").pop();
             }
-            console.log(image);
             let name = $('#name').val();
             let mbti = $('#mbti').val();
             let introduce = $('#introduce').val();
             let color = $('.custom-dropdown-selected').attr('data-value');
-            console.log(color);
 
             let data = {
                 'image': image,
@@ -199,7 +189,7 @@
                 'introduce': introduce,
                 'color': color
             };
-            //await addDoc(collection(db, "miniprofile"), doc);
+            //await addDoc(collection(db, "miniprofile"), doc);   //데이터 id 랜덤값으로 추가
             await setDoc(doc(db, "miniprofile", id), data);   //데이터 수정
             alert('저장완료!');
             location.replace("home final2.html");  //홈페이지로 이동

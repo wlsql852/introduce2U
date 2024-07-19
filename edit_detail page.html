@@ -146,9 +146,7 @@
 
         //id가져오기
         const receivedData = location.href.split('?')[1];
-        console.log(receivedData);
         let nameId = decodeURI(receivedData);
-        console.log(nameId);
 
         //저장된 데이터 가져오기
         //데이터 읽기 스켈레톤 코드
@@ -159,7 +157,6 @@
             if (id == nameId) {
                 let row = doc.data();
                 let name = row['name'];
-                console.log(nameId, name);
 
                 image = "./img/" + row['image'];  //사진 상대경로
                 let job = row['job'];
@@ -171,18 +168,15 @@
                 $('#name').attr("value", name); 
                 $('#job').attr("value", job); 
                 $('#introduce').attr("value", introduce); 
-                //console.log(introduce);
                 $('#hobby').attr("value", hobby); 
                 $('#sns').attr("value", sns); 
                 
                 loadFile_edit(image);
-                console.log(image);
                 showImage_edit();
                 
             }
 
         });
-        console.log($('#image-show'));
 
         // 데이터 입력 및 저장
         $("#savebtn").click(async function () {
@@ -260,10 +254,6 @@
         function loadFile(input) {
             var file = input.files[0];
 
-            /*const formData = new FormData();
-            formData.append(file);
-            */
-
             var newImage = document.createElement("img");
             newImage.setAttribute("class", 'img');
 
@@ -289,10 +279,6 @@
             newImage.style.visibility = "visible";
             
             //document.getElementById('image-upload').style.visibility = 'hidden'; //제출 버튼 안보이게 하기
-            
-            
-            // 이미지 다운로드
-            //  downloadImage(newImage);
         }
         //이미지 수정때 저장되었던 이미지 show
         function loadFile_edit(imageUrl) {
@@ -307,7 +293,6 @@
             var container = document.getElementById('image-show');
             var images = container.getElementsByTagName('img');
             container.appendChild(newImage);
-            console.log(images.length);
             
             
         };
@@ -316,27 +301,7 @@
             newImage.style.visibility = "visible";
 
             //document.getElementById('image-upload').style.visibility = 'hidden'; //제출 버튼 안보이게 하기
-
-            // 이미지 다운로드
-            //  downloadImage(newImage);
         }
-        /*
-        function downloadImage(file) {
-            var canvas = document.createElement('canvas');
-            var ctx = canvas.getContext('2d');
-            canvas.width = image.naturalWidth;
-            canvas.height = image.naturalHeight;
-            ctx.drawImage(image, 0, 0);
-
-            canvas.toBlob(function(blob) {
-                var link = document.createElement('a');
-                link.href = URL.createObjectURL(blob);
-                link.download = file.name;
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-            }, 'image.png');
-        } */
 
         var submit = document.getElementById('submitButton');
         submit.onclick = showImage;     //Submit 버튼 클릭시 이미지 보여주기

@@ -197,10 +197,6 @@
                     <input type="file" id="chooseFile" name="chooseFile" accept="image/*" onchange="loadFile(this)">
                 </form>
                 <div class="fileContainer">
-                    <!-- <div class="fileInput">
-                        <p>FILE NAME: </p>
-                        <p id="fileName"></p>
-                     </div> -->
                     <div class="buttonContainer">
                         <div class="submitButton" id="submitButton">SUBMIT</div>
                     </div>
@@ -214,14 +210,6 @@
     <script>
         function loadFile(input) {
             var file = input.files[0];
-            
-           /* var name = document.getElementById('fileName');
-            name.textContent = file.name;
-            */
-            
-            /*const formData = new FormData();
-            formData.append(file);
-            */
 
             var newImage = document.createElement("img");
             newImage.setAttribute("class", 'img');
@@ -243,27 +231,7 @@
             document.getElementById('image-upload').style.visibility = 'hidden';
 
              document.getElementById('fileName').textContent = null;     //기존 파일 이름 지우기
-
-            // 이미지 다운로드
-           //  downloadImage(newImage);
         }
-        /*
-        function downloadImage(file) {
-            var canvas = document.createElement('canvas');
-            var ctx = canvas.getContext('2d');
-            canvas.width = image.naturalWidth;
-            canvas.height = image.naturalHeight;
-            ctx.drawImage(image, 0, 0);
-
-            canvas.toBlob(function(blob) {
-                var link = document.createElement('a');
-                link.href = URL.createObjectURL(blob);
-                link.download = file.name;
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-            }, 'image.png');
-        } */
 
         var submit = document.getElementById('submitButton');
         submit.onclick = showImage;     //Submit 버튼 클릭시 이미지 보여주기

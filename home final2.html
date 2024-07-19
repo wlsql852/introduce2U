@@ -209,7 +209,6 @@
             $('#cardalbum').append(temp_html);  //카드 추가 생성
             const detail_show = document.getElementById(`${name}`);
             detail_show.addEventListener('click', () => {
-                //console.log(names.indexOf(name));
                 if (names.indexOf(name) == -1) {
                     location.href = `detail page.html`;
                 } else {
@@ -217,20 +216,11 @@
                 }
             });
             $(`span[name=${id}]`).click(async function () {
-                console.log(id);
                 await deleteDoc(doc(db, "miniprofile", id));
                 window.location.reload();  //새로 고침 - 안되서 고쳐야함
             });
 
         })
-        /*
-        const card_delete = $('#delete');
-        card_delete.addEventListener('click', () => {
-            deleteDoc(doc(db, "miniprofile", id));
-            console.log(id);
-            //window.location.reload();  //새로 고침
-        });
-        */
 
     </script>
 </head>
