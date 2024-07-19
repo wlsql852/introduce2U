@@ -8,9 +8,10 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <style>
-        body{
+        body {
             background-color: beige;
         }
+
         .container {
             margin-top: 30px;
             display: flex;
@@ -28,6 +29,7 @@
             flex-direction: column;
             justify-content: center;
         }
+
         .fileContainer {
             display: flex;
             justify-content: center;
@@ -35,7 +37,7 @@
             width: 300px;
 
         }
-        
+
         .fileInput {
             display: flex;
             align-items: center;
@@ -43,11 +45,12 @@
             width: 60%;
             height: 30px;
         }
-        
+
         #fileName {
             margin-left: 5px;
             display: visible;
         }
+
         .buttonContainer {
             width: 30%;
             display: flex;
@@ -76,6 +79,7 @@
             position: sticky;
             display: flex;
         }
+
         .introduce {
             width: 500px;
             margin-top: 50px;
@@ -86,15 +90,16 @@
             border: 1px solid white;
             padding: 20px;
             border-radius: 5px;
-            
+
         }
 
-        .title{
+        .title {
             font-size: 30px;
             text-align: center;
             margin-bottom: 30px;
         }
-        .name{
+
+        .name {
             font-size: 15px;
             text-align: center;
             background-color: white;
@@ -102,7 +107,8 @@
             border: 1px solid white;
             border-radius: 5px;
         }
-        .uploadimg{
+
+        .uploadimg {
             float: right;
             border: 1px solid white;
             border-radius: 5px;
@@ -115,10 +121,11 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
         import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
         import { collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+        //한 데이터파일 전체를 가져옴, 해당 아이디의 데이터를 가져오고 싶었지만 doc 변수가 겹쳐서 오류남 
         import { getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
         import { doc, setDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-        
+
         // Firebase 구성 정보 설정 - firebase에서 가져오기
         const firebaseConfig = {
             apiKey: "AIzaSyDb1ItKouvn0RePzTzKqT1WjDJ4FrbWhn8",
@@ -128,7 +135,7 @@
             messagingSenderId: "708388650781",
             appId: "1:708388650781:web:29c2ec206171efb2562bf4",
             measurementId: "G-6N1FE0S99F"
-          };
+        };
 
 
         // Firebase 인스턴스 초기화
@@ -136,6 +143,46 @@
         const db = getFirestore(app);
 
         // firebase 초기 세팅 코드 끝
+
+        //id가져오기
+        const receivedData = location.href.split('?')[1];
+        console.log(receivedData);
+        let nameId = decodeURI(receivedData);
+        console.log(nameId);
+
+        //저장된 데이터 가져오기
+        //데이터 읽기 스켈레톤 코드
+        var image;
+        let docs = await getDocs(collection(db, "introducer"));
+        docs.forEach((doc) => {
+            let id = doc.id;
+            if (id == nameId) {
+                let row = doc.data();
+                let name = row['name'];
+                console.log(nameId, name);
+
+                image = "./img/" + row['image'];  //사진 상대경로
+                let job = row['job'];
+                let introduce = row['introduce'];
+                let hobby = row['hobby'];
+                let sns = row['sns'];
+                
+                
+                $('#name').attr("value", name); 
+                $('#job').attr("value", job); 
+                $('#introduce').attr("value", introduce); 
+                //console.log(introduce);
+                $('#hobby').attr("value", hobby); 
+                $('#sns').attr("value", sns); 
+                
+                loadFile_edit(image);
+                console.log(image);
+                showImage_edit();
+                
+            }
+
+        });
+        console.log($('#image-show'));
 
         // 데이터 입력 및 저장
         $("#savebtn").click(async function () {
@@ -161,9 +208,10 @@
     </script>
     <title>introduceadd</title>
 </head>
+
 <body>
     <div class="introduce">
-       
+
         <div class="name">
             "사일런트 코더스 Silent coders"
         </div>
@@ -197,10 +245,6 @@
                     <input type="file" id="chooseFile" name="chooseFile" accept="image/*" onchange="loadFile(this)">
                 </form>
                 <div class="fileContainer">
-                    <!-- <div class="fileInput">
-                        <p>FILE NAME: </p>
-                        <p id="fileName"></p>
-                     </div> -->
                     <div class="buttonContainer">
                         <div class="submitButton" id="submitButton">SUBMIT</div>
                     </div>
@@ -210,15 +254,12 @@
         </div>
         <button id="savebtn" type="button" class="btn btn-dark">저장하기</button>
     </div>
- 
+
     <script>
+        //이미지 추가에 필요한 함수
         function loadFile(input) {
             var file = input.files[0];
-            
-           /* var name = document.getElementById('fileName');
-            name.textContent = file.name;
-            */
-            
+
             /*const formData = new FormData();
             formData.append(file);
             */
@@ -236,16 +277,48 @@
             var container = document.getElementById('image-show');
             container.appendChild(newImage);
         };
+        
         function showImage() {
+            var imageShow = document.getElementById('image-show');
+            var image1 = imageShow.getElementsByTagName("img")[0];
+            if(imageShow.getElementsByTagName("img").length>1) {
+                imageShow.removeChild(image1);
+            }
+            var newImage = imageShow.lastElementChild;
+            
+            newImage.style.visibility = "visible";
+            
+            //document.getElementById('image-upload').style.visibility = 'hidden'; //제출 버튼 안보이게 하기
+            
+            
+            // 이미지 다운로드
+            //  downloadImage(newImage);
+        }
+        //이미지 수정때 저장되었던 이미지 show
+        function loadFile_edit(imageUrl) {
+            var newImage = document.createElement("img");
+            newImage.setAttribute("class", 'img');
+            newImage.setAttribute("src" ,imageUrl);
+            newImage.style.width = "70%";
+            newImage.style.height = "70%";
+            newImage.style.visibility = "hidden";   //버튼을 누르기 전까지는 이미지 숨기기
+            newImage.style.objectFit = "contain";
+
+            var container = document.getElementById('image-show');
+            var images = container.getElementsByTagName('img');
+            container.appendChild(newImage);
+            console.log(images.length);
+            
+            
+        };
+        function showImage_edit() {
             var newImage = document.getElementById('image-show').lastElementChild;
             newImage.style.visibility = "visible";
 
-            document.getElementById('image-upload').style.visibility = 'hidden';
-
-             document.getElementById('fileName').textContent = null;     //기존 파일 이름 지우기
+            //document.getElementById('image-upload').style.visibility = 'hidden'; //제출 버튼 안보이게 하기
 
             // 이미지 다운로드
-           //  downloadImage(newImage);
+            //  downloadImage(newImage);
         }
         /*
         function downloadImage(file) {

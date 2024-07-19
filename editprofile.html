@@ -85,12 +85,12 @@
         $("#savebtn").click(async function () {
 
             console.log(1);
-            let image = $('#image').val();
+            let image = $('#image').val().split("\\").pop();
             console.log(image);
             let name = $('#name').val();
             let mbti = $('#mbti').val();
             let introduce = $('#introduce').val();
-            let color = $('#color').val();
+            let color = $('.custom-dropdown-selected').attr('data-value');
             console.log(color);
 
             let data = {
