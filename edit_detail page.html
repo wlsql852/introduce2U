@@ -166,23 +166,23 @@
                 let introduce = row['introduce'];
                 let hobby = row['hobby'];
                 let sns = row['sns'];
-                //console.log(image);
-
-
+                
+                
                 $('#name').attr("value", name); 
                 $('#job').attr("value", job); 
                 $('#introduce').attr("value", introduce); 
                 //console.log(introduce);
                 $('#hobby').attr("value", hobby); 
                 $('#sns').attr("value", sns); 
-
-                //loadFile(image);
-                //console.log(image);
-                //showImage();
+                
+                loadFile_edit(image);
+                console.log(image);
+                showImage_edit();
                 
             }
 
         });
+        console.log($('#image-show'));
 
         // 데이터 입력 및 저장
         $("#savebtn").click(async function () {
@@ -256,6 +256,7 @@
     </div>
 
     <script>
+        //이미지 추가에 필요한 함수
         function loadFile(input) {
             var file = input.files[0];
 
@@ -274,45 +275,47 @@
             newImage.style.objectFit = "contain";
 
             var container = document.getElementById('image-show');
-            //if(container.childNodes.length>0) {
-            //    container.removeChild(document.getElementsByClassName("img"));
-            //}
             container.appendChild(newImage);
         };
-        /*
-        function loadFile_url(imageUrl) {
-            var file = input.files[0];
-
-            //const formData = new FormData();
-            //formData.append(file);
+        
+        function showImage() {
+            var imageShow = document.getElementById('image-show');
+            var image1 = imageShow.getElementsByTagName("img")[0];
+            if(imageShow.getElementsByTagName("img").length>1) {
+                imageShow.removeChild(image1);
+            }
+            var newImage = imageShow.lastElementChild;
             
-
+            newImage.style.visibility = "visible";
+            
+            //document.getElementById('image-upload').style.visibility = 'hidden'; //제출 버튼 안보이게 하기
+            
+            
+            // 이미지 다운로드
+            //  downloadImage(newImage);
+        }
+        //이미지 수정때 저장되었던 이미지 show
+        function loadFile_edit(imageUrl) {
             var newImage = document.createElement("img");
             newImage.setAttribute("class", 'img');
-
-            newImage.src = URL.createObjectURL(file);
-
+            newImage.setAttribute("src" ,imageUrl);
             newImage.style.width = "70%";
             newImage.style.height = "70%";
             newImage.style.visibility = "hidden";   //버튼을 누르기 전까지는 이미지 숨기기
             newImage.style.objectFit = "contain";
 
             var container = document.getElementById('image-show');
-            //if(container.childNodes.length>0) {
-            //    container.removeChild(document.getElementsByClassName("img"));
-            //}
+            var images = container.getElementsByTagName('img');
             container.appendChild(newImage);
+            console.log(images.length);
+            
+            
         };
-        */
-        
-        
-        function showImage() {
+        function showImage_edit() {
             var newImage = document.getElementById('image-show').lastElementChild;
             newImage.style.visibility = "visible";
 
-            document.getElementById('image-upload').style.visibility = 'hidden';
-
-            document.getElementById('fileName').textContent = null;     //기존 파일 이름 지우기
+            //document.getElementById('image-upload').style.visibility = 'hidden'; //제출 버튼 안보이게 하기
 
             // 이미지 다운로드
             //  downloadImage(newImage);
