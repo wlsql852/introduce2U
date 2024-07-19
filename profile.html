@@ -50,12 +50,6 @@
             transform: translateY(-10px);
         }
 
-
-
-
-
-
-
         .name {
 
             position: absolute;
@@ -149,7 +143,6 @@
         import { collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
         import { getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
-
         // Firebase 구성 정보 설정 - firebase에서 가져오기
         const firebaseConfig = {
             apiKey: "AIzaSyDb1ItKouvn0RePzTzKqT1WjDJ4FrbWhn8",
@@ -185,18 +178,18 @@
             console.log(nameId, name);
 
             if (name == nameId) {
-                let image = row['image'];
+                let image = "./img/"+row['image'];  //사진 상대경로
                 let job = row['job'];
                 let introduce = row['introduce'];
                 let hobby = row['hobby'];
                 let sns = row['sns'];
-                console.log(sns);
+                //console.log(image);
 
 
                 $('#name').text(name);
                 $('#job').text(job);
-                //$('#pimage').attr("src", +image);
-
+                $('#pimage').attr("src", image);
+                
                 $('#introduce').text(introduce);
                 //console.log(introduce);
                 $('#hobby').text(hobby);
@@ -218,7 +211,7 @@
         </div>
 
         <div class="gohome">
-            <button type="button" class="btn btn-light">Home</button>
+            <button type="button" class="btn btn-light" onclick="location.href='home final2.html'">Home</button>
         </div>
 
         <div class="name">
@@ -267,7 +260,7 @@
             <div class="velog">
                 <h5>SNS Address</h5>
                 <p>
-                    <a href="https://velog.io/@sol000619/posts"> 조은솔의 velog</a>
+                    <a href="https://velog.io/@sol000619/posts">sns</a>
                 </p>
 
             </div>

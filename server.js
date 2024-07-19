@@ -2,17 +2,18 @@ const express = require('express');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
+const cors = require('cors');  // CORS 패키지 불러오기
 
 
 const app = express();
-const PORT = 8080;
+const PORT = 9080;
 
 
 //pom.xml mvn install -> java
 //npm install
 //py install
 //패키지 관리자
-
+app.use(cors());  // CORS 미들웨어 설정
 //multer
 //커스텀
 const uploadDir = path.join(__dirname, 'image');

@@ -8,12 +8,18 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <style>
+        body{
+            background-color: beige;
+        }
         .container {
             margin-top: 30px;
             display: flex;
             width: 200px;
-            height: 300px;
+            height: 100px;
             flex-direction: column;
+            position: relative;
+            bottom: 500px;
+            left: 500px;
         }
 
         .image-upload {
@@ -26,7 +32,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 400px;
+            width: 300px;
+
         }
         
         .fileInput {
@@ -47,31 +54,58 @@
             justify-content: center;
             align-items: center;
             margin-left: 10px;
-            background-color: black;
-            color: white;
+            background-color: white;
+            color: transparent;
             border-radius: 30px;
             padding: 10px;
             font-size: 0.8em;
+            color: black;
 
             cursor: pointer;
         }
 
         .image-show {
             z-index: -1;
+            width: 400px;
+            height: 400px;
             display: flex;
-            justify-content: center;
-            width: 500px;
-            height: 600px;
-            margin-right: 20px;
         }
 
         .img {
             margin-right: 20px;
-            position: absolute;
+            position: sticky;
+            display: flex;
         }
         .introduce {
-            margin-left: 20px;
-            width: 70%;
+            width: 500px;
+            margin-top: 50px;
+            margin-left: 20%;
+            text-align: center;
+            background-color: rgb(175, 173, 148);
+
+            border: 1px solid white;
+            padding: 20px;
+            border-radius: 5px;
+            
+        }
+
+        .title{
+            font-size: 30px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .name{
+            font-size: 15px;
+            text-align: center;
+            background-color: white;
+            color: black;
+            border: 1px solid white;
+            border-radius: 5px;
+        }
+        .uploadimg{
+            float: right;
+            border: 1px solid white;
+            border-radius: 5px;
         }
     </style>
 
@@ -84,7 +118,7 @@
         import { getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
         import { doc, setDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-
+        
         // Firebase 구성 정보 설정 - firebase에서 가져오기
         const firebaseConfig = {
             apiKey: "AIzaSyDb1ItKouvn0RePzTzKqT1WjDJ4FrbWhn8",
@@ -120,7 +154,6 @@
                 'hobby': hobby,
                 'sns': sns
             };
-            //await addDoc(collection(db, "introducer"), doc);    //각 데이터의 id를 랜덤으로 지정함
             await setDoc(doc(db, "introducer", `${name}`), data); //각 데이터의 id를 이름으로 지정함
             alert('저장완료!');
             location.replace(`profile.html?${name}`);  //개인 상세페이지로 이동
@@ -128,26 +161,15 @@
     </script>
     <title>introduceadd</title>
 </head>
-
 <body>
-    <div class="container">
-        <div class="image-upload" id="image-upload">
-            <form method="post" enctype="multipart/form-data" id="imgform">
-                <input type="file" id="chooseFile" name="chooseFile" accept="image/*" onchange="loadFile(this)">
-            </form>
-            <div class="fileContainer">
-                <!-- <div class="fileInput">
-                    <p>FILE NAME: </p>
-                    <p id="fileName"></p>
-                </div> -->
-                <div class="buttonContainer">
-                    <div class="submitButton" id="submitButton">SUBMIT</div>
-                </div>
-            </div>
-            <div class="image-show" id="image-show"></div>
-        </div>
-    </div>
     <div class="introduce">
+       
+        <div class="name">
+            "사일런트 코더스 Silent coders"
+        </div>
+        <div class="title">
+            자신을 소개해 주세요
+        </div>
         <div class="form-floating mb-3">
             <input type="email" class="form-control" id="name" placeholder="name@example.com">
             <label for="floatingInput">이름</label>
@@ -168,9 +190,28 @@
             <input type="email" class="form-control" id="sns" placeholder="name@example.com">
             <label for="floatingInput">sns소개</label>
         </div>
-        <button id="savebtn" type="button" class="btn btn-primary">저장하기</button>
+
+        <div class="container">
+            <div class="image-upload" id="image-upload">
+                <form method="post" enctype="multipart/form-data" id="imgform">
+                    <input type="file" id="chooseFile" name="chooseFile" accept="image/*" onchange="loadFile(this)">
+                </form>
+                <div class="fileContainer">
+                    <!-- <div class="fileInput">
+                        <p>FILE NAME: </p>
+                        <p id="fileName"></p>
+                     </div> -->
+                    <div class="buttonContainer">
+                        <div class="submitButton" id="submitButton">SUBMIT</div>
+                    </div>
+                </div>
+                <div class="image-show" id="image-show"></div>
+            </div>
+        </div>
+        <button id="savebtn" type="button" class="btn btn-dark">저장하기</button>
     </div>
-        <script>
+ 
+    <script>
         function loadFile(input) {
             var file = input.files[0];
             

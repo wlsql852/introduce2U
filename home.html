@@ -42,6 +42,8 @@
         const db = getFirestore(app);
 
         // firebase 초기 세팅 코드 끝
+
+        // firebase에 해당 인물의 상세페이지가 있는지 확인하기 위한 코드
         const names = [];
         let datas = await getDocs(collection(db, "introducer"));
         datas.forEach((data) => {
@@ -73,7 +75,7 @@
             $('#cards').append(temp_html);  //카드 추가 생성
             const detail_show = document.getElementById(`${name}`);
             detail_show.addEventListener('click', () => {
-                consol
+                location.href = `introduceshow.html?${name}`;
                 /*
                 if(names.indexOf(name) < -1){
                     location.href = `introduceadd.html`;
@@ -95,8 +97,6 @@
         <div id="cards" class="row row-cols-1 row-cols-md-4 g-4">
         </div>
     </div>
-    <script defer src="./go.js">
-    </script>
 </body>
 
 </html>
