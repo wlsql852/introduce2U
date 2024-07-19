@@ -152,7 +152,7 @@
 
         //저장된 데이터 가져오기
         //데이터 읽기 스켈레톤 코드
-        let image;
+        var image;
         let docs = await getDocs(collection(db, "introducer"));
         docs.forEach((doc) => {
             let id = doc.id;
@@ -175,6 +175,10 @@
                 //console.log(introduce);
                 $('#hobby').attr("value", hobby); 
                 $('#sns').attr("value", sns); 
+
+                //loadFile(image);
+                //console.log(image);
+                //showImage();
                 
             }
 
@@ -275,6 +279,33 @@
             //}
             container.appendChild(newImage);
         };
+        /*
+        function loadFile_url(imageUrl) {
+            var file = input.files[0];
+
+            //const formData = new FormData();
+            //formData.append(file);
+            
+
+            var newImage = document.createElement("img");
+            newImage.setAttribute("class", 'img');
+
+            newImage.src = URL.createObjectURL(file);
+
+            newImage.style.width = "70%";
+            newImage.style.height = "70%";
+            newImage.style.visibility = "hidden";   //버튼을 누르기 전까지는 이미지 숨기기
+            newImage.style.objectFit = "contain";
+
+            var container = document.getElementById('image-show');
+            //if(container.childNodes.length>0) {
+            //    container.removeChild(document.getElementsByClassName("img"));
+            //}
+            container.appendChild(newImage);
+        };
+        */
+        
+        
         function showImage() {
             var newImage = document.getElementById('image-show').lastElementChild;
             newImage.style.visibility = "visible";
@@ -303,9 +334,7 @@
                 document.body.removeChild(link);
             }, 'image.png');
         } */
-        //loadFile(image);
-        //console.log(image);
-        //showImage();
+
         var submit = document.getElementById('submitButton');
         submit.onclick = showImage;     //Submit 버튼 클릭시 이미지 보여주기
     </script>
