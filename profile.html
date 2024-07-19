@@ -198,6 +198,10 @@
 
         });
 
+        $('#editbtn').click(async function () {
+            location.replace(`edit_detail page.html?${nameId}`);
+        })
+
     </script>
 </head>
 
@@ -260,11 +264,14 @@
             <div class="velog">
                 <h5>SNS Address</h5>
                 <p>
-                    <a href="https://velog.io/@sol000619/posts"> 조은솔의 velog</a>
+                    <a href="https://velog.io/@sol000619/posts"> sns</a>
                 </p>
 
             </div>
             </p>
+        </div>
+        <div>
+            <button id="editbtn" type="button" class="btn btn-light">수정</button>
         </div>
     </div>
 
