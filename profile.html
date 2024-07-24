@@ -168,10 +168,11 @@
         //데이터 읽기 스켈레톤 코드
         let docs = await getDocs(collection(db, "introducer"));
         docs.forEach((doc) => {
+            let id = doc.id;
+            if (id == nameId) {
             let row = doc.data();
             let name = row['name'];
 
-            if (name == nameId) {
                 let image = "./img/"+row['image'];  //사진 상대경로
                 let job = row['job'];
                 let introduce = row['introduce'];

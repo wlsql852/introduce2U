@@ -141,10 +141,10 @@
         // 데이터 입력 및 저장
         $("#savebtn").click(async function () {
             let image;
-            if($('#image').val().split("\\").length > 1) {
+            if($('#image').val().split("\\").length > 1) {    //window일때
                 image = $('#image').val().split("\\").pop();
             } else {
-                image = $('#image').val().split("/").pop();
+                image = $('#image').val().split("/").pop();    //mac일때
             }
             let name = $('#name').val();
             let mbti = $('#mbti').val();
